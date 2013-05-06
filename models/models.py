@@ -97,7 +97,7 @@ class DCN(Node):
     g_K = 17.5
     g_Kd = 25.0
     g_Na = 58.0
-    g_Ca = 3.55
+    g_Ca = 4.25
     g_leak = 0.1
     g_IH = 0.8
     g_NaCa = 0.05
@@ -108,7 +108,7 @@ class DCN(Node):
     tau_ihf = 20.0
     tau_mt = 7.0
     tau_ht = 37.0
-    tau_nd = 21.0
+    tau_nd = 25.0
 
     g = 1.5
     kap = 0.5
@@ -197,7 +197,7 @@ class DCN(Node):
         return 1 / (1 + exp((v + 63.8) / 6.9))
 
     def nd_inf(self, v):
-        return 1 / (1 + exp(-(v + 30) / 3))
+        return 1 / (1 + exp(-(v + 30) / 3.5))
 
 class IClamp(Node):
 
