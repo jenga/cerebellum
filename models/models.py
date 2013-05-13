@@ -115,13 +115,14 @@ class DCN(Node):
     C = 3.0
     Cd = 3.0
 
-    def __init__(self, name, gca=3.55):
+    def __init__(self, name, gca=4.25, gih=0.8):
         super().__init__(name)
         self.outputs = {'spike': 0}
         self.inputs = {'isource': [], 'exc': [], 'inh': []}
         self.vrs = {'mt': 0.024517160789596117, 'Vs': -46.433814101677193, 'Vd': -49.858712712574359, 'ihf': 0.032103453134627931, 'ihs': 0.034306183881818941, 'h': 0.95868834690418592, 'nd': 0.00089539845217886688, 'm': 0.0067449017530451256, 'ht': 0.16175366140431852, 'n': 2.7053891749215154e-05, 'inh': 0.0, 'inh_g': 0.0}
         self.spiked = False
         self.g_Ca = gca
+        self.g_IH = gih
 
     def integrate(self, t, dt):
         v = self.vrs

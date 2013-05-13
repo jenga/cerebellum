@@ -4,10 +4,10 @@ from models.links import InhSynapse, NoiseLink, INoise, ISource
 
 class PCDCNSimulation(Simulation):
 
-    def __init__(self, dt=0.01, fn=None, gca=3.55, corr=0.5):
+    def __init__(self, dt=0.01, fn=None, gca=4.25, gih=0.8 corr=0.5):
         super().__init__(dt=dt, fn=fn)
         nc = Noise('common')
-        dcn = DCN('dcn', gca=gca)
+        dcn = DCN('dcn', gca=gca, gih=gih)
         icl = IClamp('dcn_i', on=0, dur=0, amp=4.0)
         ISource('dcn_icl', icl, dcn)
         noises = []
