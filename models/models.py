@@ -260,3 +260,25 @@ class ComboNoise(Node):
         c = self.mu + self.sd * (sqrt(self.c) * self.inputs['s'][0].transfer(dt) + sqrt(1 - self.c) * self.inputs['s'][1].transfer(dt))
         self.vrs = {'c': c}
         self.outputs = {'c': c}
+
+class PCST(Node):
+
+    def __init__(self,name):
+        super().__init__(name)
+        self.outputs = {'spike': 0}
+        self.inputs = {'isource': [], 'exc': [], 'inh': []}
+        self.vrs = {'Vs':0}
+        with open('stim A.txt','r') as f:
+             spikes=f.readline()
+        spikes.strip('/n')
+        spikes=spikes.split('\t')
+        spikes=[float(x) for x in spikes]
+        spikes=[x*1000 for x in spikes]
+        self.spiketimes=[int(x) for x in spikes]
+     
+    def integrate(self,t,dt):
+        if t in self.spiketimes:
+           self.outputs['spike'] = 1
+           #self.spiketimes.remove(t)
+        else:
+           self.outputs['spike'] = 0
