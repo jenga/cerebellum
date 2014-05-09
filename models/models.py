@@ -282,7 +282,7 @@ class PCST(Node):
         else:
            self.outputs['spike'] = 0
 
-class PCSpont1(Node):
+class PCSpont(Node):
 
     def __init__(self,name):
         super().__init__(name)

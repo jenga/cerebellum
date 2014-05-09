@@ -1,5 +1,5 @@
 from rhesus.controllers import Simulation
-from models.models import  Noise, DCN, IClamp, PC, ComboNoise, PCST
+from models.models import  Noise, DCN, IClamp, PC, ComboNoise, PCST, PCSpont
 from models.links import InhSynapse, NoiseLink, INoise, ISource
 
 class PCDCNSimulation(Simulation):
@@ -46,13 +46,13 @@ class PCST10Simulation(Simulation):
 
    def __init__(self, dt=0.01, fn=None, gca=4.25, gih=0.8):
        super().__init__(dt=dt, fn=fn)
-       dcn=DCN('dcn', gca=gca, gih=gih)
-       icl= IClamp('dcn_i', on=0, dur=0, amp=4.0)
+       dcn = DCN('dcn', gca=gca, gih=gih)
+       icl = IClamp('dcn_i', on=0, dur=0, amp=4.0)
        ISource('dcn_icl', icl, dcn)
        self.addModel(icl)
        self.addModel(dcn)
        for i in range(0,10):
-           pc=PCST('pc'+str(i))
+           pc = PCST('pc'+str(i))
            InhSynapse('inh'+str(i), pc, dcn)
            self.addModel(pc)
 
@@ -60,16 +60,12 @@ class PCSTIM10Simulation(Simulation):
 
    def __init__(self, dt=0.01, fn=None, gca=4.25, gih=0.8):
        super().__init__(dt=dt, fn=fn)
-       dcn=DCN('dcn', gca=gca, gih=gih)
-       icl= IClamp('dcn_i', on=0, dur=0, amp=4.0)
+       dcn = DCN('dcn', gca=gca, gih=gih)
+       icl = IClamp('dcn_i', on=0, dur=0, amp=4.0)
        ISource('dcn_icl', icl, dcn)
        self.addModel(icl)
        self.addModel(dcn)
-       for i in range(0,5):
-           pc=PCSpont1('pc'+str(i))
-           InhSynapse('inh'+str(i), pc, dcn)
-           self.addModel(pc)
-       for i in range(5,10):
-           pc=PCStimC('pc'+str(i))
+       for i in range(0,10):
+           pc = PCSpont('pc'+str(i))
            InhSynapse('inh'+str(i), pc, dcn)
            self.addModel(pc)		  
